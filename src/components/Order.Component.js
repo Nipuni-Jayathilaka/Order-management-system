@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
 import axios from "axios";
 
-export default class SignUp extends Component {
+export default class Order extends Component {
     constructor(props) {
         super(props);
         this.state={
-            fname:"",
-            lname:"",
-            address:"",
-            password:""
+            itemname:"",
+            qty:"",
+            shippingaddress:""
+
         };
         this.handleSubmit=this.handleSubmit.bind(this);
     }
     handleSubmit(e){
         e.preventDefault();
-        const {fname,lname,address,password} = this.state;
-        console.log(fname,lname,address,password);
-        axios.post('http://localhost:8080/api/v1/order',this.state)
+        const {itemname,qty,shippingaddress} = this.state;
+        axios.post('http://localhost:8080/app/api/v1/order',this.state)
             .then(response=>{
                 console.log(response)
             })
@@ -27,51 +26,45 @@ export default class SignUp extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Sign Up</h3>
+                <h3>Place an Order</h3>
 
                 <div className="mb-3">
-                    <label>First name</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="First name"
-                        onChange={(e)=>this.setState({fname:e.target.value})}
-                    />
+                    <label>Item Name</label>
+                    <div className="dropdown">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" onChange={(e)=>this.setState({itemname:e.target.value})}>
+                            select
+                        </button>
+                        <ul className="dropdown-menu">
+                            <li><a className="dropdown-item" href="#">item1</a></li>
+                            <li><a className="dropdown-item" href="#">item2</a></li>
+                            <li><a className="dropdown-item" href="#">item3</a></li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div className="mb-3">
-                    <label>Last name</label>
-                    <input type="text" className="form-control" placeholder="Last name" onChange={(e)=>this.setState({lname:e.target.value})}/>
+                    <label>Quantity</label>
+                    <input type="text" className="form-control" placeholder="10" onChange={(e)=>this.setState({qty:e.target.value})}/>
                 </div>
 
-                <div className="mb-3">
-                    <label>Address</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Enter Address"
-                        onChange={(e)=>this.setState({address:e.target.value})}
-                    />
-                </div>
 
                 <div className="mb-3">
-                    <label>Password</label>
+                    <label>Shipping Address</label>
                     <input
                         type="password"
                         className="form-control"
                         placeholder="Enter password"
-                        onChange={(e)=>this.setState({password:e.target.value})}
+                        onChange={(e)=>this.setState({shippingaddress:e.target.value})}
                     />
                 </div>
 
                 <div className="d-grid">
                     <button type="submit" className="btn btn-primary">
-                        Sign Up
+                        Place Order
                     </button>
                 </div>
-                <p className="forgot-password text-right">
-                    Already registered <a href="/sign-in">sign in?</a>
-                </p>
+
             </form>
         )
     }
