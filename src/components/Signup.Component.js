@@ -5,18 +5,23 @@ export default class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state={
-            fname:"",
-            lname:"",
+            firstName:"",
+            lastName:"",
             address:"",
+            username:"",
             password:""
         };
         this.handleSubmit=this.handleSubmit.bind(this);
     }
     handleSubmit(e){
         e.preventDefault();
-        const {fname,lname,address,password} = this.state;
-        console.log(fname,lname,address,password);
-        axios.post('http://localhost:8083/app/api/v1/client/signup',this.state)
+
+
+        axios.post('http://localhost:8083/app/api/v1/client',this.state,{
+            headers:{
+                'content-type':'application/json'
+            }
+        })
             .then(response=>{
                 console.log(response)
             })
@@ -42,6 +47,11 @@ export default class SignUp extends Component {
                 <div className="mb-3">
                     <label>Last name</label>
                     <input type="text" className="form-control" placeholder="Last name" onChange={(e)=>this.setState({lname:e.target.value})}/>
+                </div>
+
+                <div className="mb-3">
+                    <label>username</label>
+                    <input type="text" className="form-control" placeholder="username" onChange={(e)=>this.setState({username:e.target.value})}/>
                 </div>
 
                 <div className="mb-3">

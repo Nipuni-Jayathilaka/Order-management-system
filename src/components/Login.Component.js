@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import Order from "./Order.Component";
 
 
 export default class Login extends Component {
@@ -12,20 +13,21 @@ export default class Login extends Component {
         };
         this.handleSubmit=this.handleSubmit.bind(this);
     }
-    handleSubmit =async (e)=>{
-        const {username,password} =this.state;
+    handleSubmit(e){
         e.preventDefault();
-        try{
-            const response=await axios.post('http://localhost:8083/app/api/v1/client/login',
-                JSON.stringify({username, password}),
-                {
-                    headers:{'Content-Type':'application/json'},
-                    withCredentials:true
-                });
-        }catch (error){
-            console.log(error);
-        }
+        const {username,password} = this.state;
 
+        axios.post('http://localhost:8083/app/api/v1/client/verify',this.state,{
+            headers:{
+                'content-type':'application/json'
+            }
+        })
+            .then(response=>{
+                <Order/>
+            })
+            .catch(error=>{
+                console.log(error)
+            })
     }
     render() {
         return (
