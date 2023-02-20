@@ -20,10 +20,12 @@ export default class Login extends Component {
             }
         })
             .then(response=>{
-                window.location.href='/Order.Component.js';
+                window.location.href='/order';
             })
             .catch(error=>{
-                console.log(error)
+                alert("You are not registered yet please register!");
+                window.location.href='/sign-up';
+
             })
     }
     render() {

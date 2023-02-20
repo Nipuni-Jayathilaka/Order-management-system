@@ -23,7 +23,12 @@ export default class Order extends Component {
                 console.log(error)
             })
     }
+
     render() {
+        function showGenre(e) {
+            document.getElementById("dropdownMenu1").innerHTML = e.target.innerHTML;
+
+        }
         return (
             <form onSubmit={this.handleSubmit}>
                 <h3>Place an Order</h3>
@@ -32,13 +37,14 @@ export default class Order extends Component {
                     <label>Item Name</label>
                     <div className="dropdown">
                         <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false" onChange={(e)=>this.setState({itemname:e.target.value})}>
-                            select
+                                aria-expanded="false" id="dropdownMenu1" onChange={(e)=>this.setState({itemname:e.target.value})}>
+                            Select item
                         </button>
-                        <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">item1</a></li>
-                            <li><a className="dropdown-item" href="#">item2</a></li>
-                            <li><a className="dropdown-item" href="#">item3</a></li>
+                        <ul className="dropdown-menu dropdown-menu-dark">
+                            <li><a className="dropdown-item" href="#" onClick={showGenre}>laptop</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={showGenre}>mobile</a></li>
+                            <li><a className="dropdown-item" href="#" onClick={showGenre}>charger</a></li>
+
                         </ul>
                     </div>
                 </div>
@@ -52,9 +58,9 @@ export default class Order extends Component {
                 <div className="mb-3">
                     <label>Shipping Address</label>
                     <input
-                        type="password"
+                        type="text"
                         className="form-control"
-                        placeholder="Enter password"
+                        placeholder="Enter address"
                         onChange={(e)=>this.setState({shippingaddress:e.target.value})}
                     />
                 </div>
