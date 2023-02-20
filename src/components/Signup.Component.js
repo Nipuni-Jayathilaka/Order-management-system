@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from "axios";
+import {Route} from "react-router-dom";
+import Login from "./Login.Component";
 
 export default class SignUp extends Component {
     constructor(props) {
@@ -15,18 +17,18 @@ export default class SignUp extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-
-
         axios.post('http://localhost:8083/app/api/v1/client',this.state,{
             headers:{
                 'content-type':'application/json'
             }
         })
             .then(response=>{
-                console.log(response)
+                alert("Client added successfully");
+                window.location.href='/';
+
             })
             .catch(error=>{
-                console.log(error)
+                alert(error)
             })
     }
     render() {
@@ -40,13 +42,13 @@ export default class SignUp extends Component {
                         type="text"
                         className="form-control"
                         placeholder="First name"
-                        onChange={(e)=>this.setState({fname:e.target.value})}
+                        onChange={(e)=>this.setState({firstName:e.target.value})}
                     />
                 </div>
 
                 <div className="mb-3">
                     <label>Last name</label>
-                    <input type="text" className="form-control" placeholder="Last name" onChange={(e)=>this.setState({lname:e.target.value})}/>
+                    <input type="text" className="form-control" placeholder="Last name" onChange={(e)=>this.setState({lastName:e.target.value})}/>
                 </div>
 
                 <div className="mb-3">

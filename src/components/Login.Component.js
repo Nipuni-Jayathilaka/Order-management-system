@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import axios from "axios";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
-import Order from "./Order.Component";
 
 
 export default class Login extends Component {
@@ -15,7 +13,6 @@ export default class Login extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        const {username,password} = this.state;
 
         axios.post('http://localhost:8083/app/api/v1/client/verify',this.state,{
             headers:{
@@ -23,7 +20,7 @@ export default class Login extends Component {
             }
         })
             .then(response=>{
-                <Order/>
+                window.location.href='/Order.Component.js';
             })
             .catch(error=>{
                 console.log(error)
@@ -75,7 +72,9 @@ export default class Login extends Component {
                 <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p>
+
             </form>
+
         )
     }
 }
